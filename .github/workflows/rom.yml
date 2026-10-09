@@ -1,0 +1,13 @@
+name: Build Rom
+on: [workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y build-essential binutils-arm-none-eabi gcc-arm-none-eabi libpng-dev
+      - run: make -j4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rom
+          path: "*.gba"
